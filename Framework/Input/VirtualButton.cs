@@ -306,7 +306,7 @@ public class VirtualButton
 		{
 			if (Time.OnInterval(
 				(Time.Duration - PressTimestamp).TotalSeconds - RepeatDelay,
-				Time.Delta,
+				Time.DeltaRaw,
 				RepeatInterval, 0))
 			{
 				Repeated = true;

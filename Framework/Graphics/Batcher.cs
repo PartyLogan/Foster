@@ -1,7 +1,6 @@
-using System.Diagnostics;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Numerics;
 
 namespace Foster.Framework;
 
@@ -181,7 +180,7 @@ public class Batcher : IDisposable
 		if (viewport.HasValue)
 			size = new Point2(viewport.Value.Width, viewport.Value.Height);
 		else if (target != null)
-			size = new Point2(target.Width,target.Height);
+			size = new Point2(target.Width, target.Height);
 		else
 			size = new Point2(App.WidthInPixels, App.HeightInPixels);
 
@@ -413,9 +412,9 @@ public class Batcher : IDisposable
 	/// </summary>
 	public void PushMaterial(Material material)
 	{
-		PushMaterial(material, 
-			defaultMaterialState.MatrixUniform, 
-			defaultMaterialState.TextureUniform, 
+		PushMaterial(material,
+			defaultMaterialState.MatrixUniform,
+			defaultMaterialState.TextureUniform,
 			defaultMaterialState.SamplerUniform
 		);
 	}
@@ -939,7 +938,7 @@ public class Batcher : IDisposable
 			new Vector2(x, y + height),
 			c0, c1, c2, c3);
 	}
-	
+
 	public void RectLine(in Rect rect, float t, Color color)
 	{
 		if (t > 0)

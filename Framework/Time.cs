@@ -3,10 +3,24 @@ namespace Foster.Framework;
 public static class Time
 {
 	/// <summary>
+	/// The delta to use if you want it to be affected by the game speed, unsure if this is what should be used below for the things like OnInterval, probably not since they seem like real x second based functions
+	/// </summary>
+	public static float Delta
+	{
+		get => DeltaRaw * TimeMod;
+	}
+
+	/// <summary>
+	/// The game speed modifier, used to slow down and speed up the game by modifing the delta time.
+	/// </summary>
+	public static float TimeMod { set => timemod = Calc.Clamp(value, 0.01f, 1000f); get => timemod; }
+	private static float timemod = 1f;
+
+	/// <summary>
 	/// Time in Seconds since our last Update.
 	/// In Fixed Timestep this always returns a constant value.
 	/// </summary>
-	public static float Delta;
+	public static float DeltaRaw;
 
 	/// <summary>
 	/// An Accumulation of the Delta Time, incremented each Update.
@@ -46,10 +60,10 @@ public static class Time
 	/// </summary>
 	public static void Advance(TimeSpan delta)
 	{
-		Delta = (float)delta.TotalSeconds;
+		DeltaRaw = (float)delta.TotalSeconds;
 		Duration += delta;
 	}
-	
+
 	/// <summary>
 	/// Returns true when the elapsed time passes a given interval based on the delta time
 	/// </summary>
@@ -71,7 +85,7 @@ public static class Time
 	/// </summary>
 	public static bool OnInterval(double interval, double offset = 0.0)
 	{
-		return OnInterval(Duration.TotalSeconds, Delta, interval, offset);
+		return OnInterval(Duration.TotalSeconds, DeltaRaw, interval, offset);
 	}
 
 	/// <summary>
